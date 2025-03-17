@@ -1,26 +1,33 @@
 workflows:
-  default-workflow:
-    name: Default Workflow
-    max_build_duration: 60
+  ios-release:
+    name: iOS Release Workflow
     environment:
       flutter: stable
-      xcode: latest # Xcode für iOS-Builds erforderlich
+      xcode: latest
+      cocoapods: default
+      vars:
+      # Falls du Umgebungsvariablen brauchst, kannst du sie hier hinzufügen.
     scripts:
       - name: Install dependencies
-        script: flutter pub get
-      - name: Build Android APK
-        script: flutter build apk --release
-      - name: Build iOS App
-        script: flutter build ipa --release # iOS Build-Befehl
+        script: |
+          flutter pub get
+          cd ios
+          pod install
+          cd ..
+      - name: Build iOS app
+        script: |
+          flutter build ios --release --no-codesign
     artifacts:
-      - build/app/outputs/flutter-apk/app-release.apk
-      - build/ios/ipa/*.ipa # iOS IPA-Dateien als Artefakte speichern
-code_signing:
-  ios:
-    provisioning_profiles:
-      "com.example.deeptalk": DeepTalk_Profile
-    certificate:
-      keychain_path: certificate.p12
-      password: $CERTIFICATE_PASSWORD
-
+      - build/ios/ipa
+publishing:
+  app_store_connect:
+    credentials:
+      api_key: |
+        MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgWtMvovvKau16OX6p
+        gySbLpM7xZNj8ZfaF14nRQCBCzegCgYIKoZIzj0DAQehRANCAARMEZbqcwSOjnaw
+        /0A4Sub/jK/1vLoR0kx396mlKu88FvT53KKQwHKBtcgw8Kl49P2aLt0s1izmamxf
+        3IvzUZjE
+      issuer_id: 8c428024-921d-4ca4-8b0e-84c410dff42b
+      key_id: HZGZ74GASG
+    submit_to_testflight: true
 

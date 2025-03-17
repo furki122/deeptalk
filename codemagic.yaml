@@ -4,10 +4,23 @@ workflows:
     max_build_duration: 60
     environment:
       flutter: stable
+      xcode: latest # Xcode für iOS-Builds erforderlich
     scripts:
       - name: Install dependencies
         script: flutter pub get
-      - name: Build APK
+      - name: Build Android APK
         script: flutter build apk --release
+      - name: Build iOS App
+        script: flutter build ipa --release # iOS Build-Befehl
     artifacts:
       - build/app/outputs/flutter-apk/app-release.apk
+      - build/ios/ipa/*.ipa # iOS IPA-Dateien als Artefakte speichern
+code_signing:
+  ios:
+    provisioning_profiles:
+      "com.example.deeptalk": DeepTalk_Profile
+    certificate:
+      keychain_path: certificate.p12
+      password: $CERTIFICATE_PASSWORD
+
+

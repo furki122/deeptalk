@@ -4,7 +4,6 @@ workflows:
     environment:
       flutter: stable
       xcode: latest
-      cocoapods: default
     scripts:
       - name: Install dependencies
         script: |
@@ -19,4 +18,8 @@ workflows:
       - build/ios/ipa
     publishing:
       app_store_connect:
+        api_key:
+          key_id: HZGZ74GASG # Deine Key ID
+          issuer_id: Bc428024-921d-4ca4-8b0e-84c410dff42b # Deine Issuer ID
+          private_key: Encrypted(...) # Codemagic verschlüsselt die Datei automatisch
         submit_to_testflight: true

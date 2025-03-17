@@ -19,6 +19,4 @@ workflows:
       - build/ios/ipa
     publishing:
       app_store_connect:
-        apple_id: "yazgi.furkan@icloud.com"
-        password: "hbnx-dwbv-nbau-patl"
         submit_to_testflight: true

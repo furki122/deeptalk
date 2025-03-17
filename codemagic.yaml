@@ -5,7 +5,6 @@ workflows:
       flutter: stable
       xcode: latest
       cocoapods: default
-      vars: {} # Leere Variablen, falls keine benötigt werden
     scripts:
       - name: Install dependencies
         script: |
@@ -20,12 +19,6 @@ workflows:
       - build/ios/ipa
     publishing:
       app_store_connect:
-        credentials:
-          api_key: |
-            MIGTAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBHkwdwIBAQQgWtMvovvKau16OX6p
-            gySbLpM7xZNj8ZfaF14nRQCBCzegCgYIKoZIzj0DAQehRANCAARMEZbqcwSOjnaw
-            /0A4Sub/jK/1vLoR0kx396mlKu88FvT53KKQwHKBtcgw8Kl49P2aLt0s1izmamxf
-            3IvzUZjE
-          issuer_id: 8c428024-921d-4ca4-8b0e-84c410dff42b
-          key_id: HZGZ74GASG
+        apple_id: "yazgi.furkan@icloud.com"
+        password: "hbnx-dwbv-nbau-patl"
         submit_to_testflight: true
